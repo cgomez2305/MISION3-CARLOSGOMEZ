@@ -10,7 +10,7 @@ const enviar=document.getElementById('enviar')
 let personas=[]
 let newArray=[]
 let cont=0;
-
+let bandera=true
 
 class Person{
     constructor(area,nombre,usuario,email,edad){
@@ -31,12 +31,18 @@ enviar.addEventListener('click',()=>{
         console.log('no pasa')
     }
     else{
-        send(personas)
-        let nuevo=new Person(area.value,nombre.value,usuario.value,email.value,edad.value)
-        personas=JSON.parse(localStorage.getItem('personas'))
-        personas.push(nuevo);
-        send(personas)
-        console.log('enviado')
+        let resultado=personas.filter(element=> element.usuario==usuario.value)
+        if(resultado==''){
+            send(personas)
+            let nuevo=new Person(area.value,nombre.value,usuario.value,email.value,edad.value)
+            personas=JSON.parse(localStorage.getItem('personas'))
+            personas.push(nuevo);
+            send(personas)
+            console.log('enviado')
+        }else{
+            alert('El ususario ya existe')
+        }
+        
     }
 })
 
@@ -46,3 +52,9 @@ function send(objeto){
     return seVa
 }
 
+window.addEventListener('load',()=>{
+    const traemos=JSON.parse(localStorage.getItem('personas'))
+    traemos.forEach(element => {
+        personas.push(element)
+    });
+})

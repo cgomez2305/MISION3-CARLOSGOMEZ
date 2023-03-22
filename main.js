@@ -1,6 +1,6 @@
 const agregar=document.getElementById("agregar");
-const agregamos=document.getElementById("agregamos");
-const search=document.getElementById("search");
+const tabla=document.getElementById("agregamos");
+const filtro=document.getElementById("search");
 let array=JSON.parse(localStorage.getItem('personas'))
 
 
@@ -26,27 +26,17 @@ window.addEventListener('load',()=>{
     agregar_persona()
 })
 
-function search_persona(){
-    let filter, tr, td, i, j, visible;
-    filter = search.value.toUpperCase();
-    table = agregamos;
-    tr = agregamos.getElementsByTagName("tr");
 
-    for (i = 0; i < tr.length; i++) {
-        visible = false;
-        td = tr[i].getElementsByTagName("td");
-        for (j = 0; j < td.length; j++) {
-        if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
-            visible = true;
-        }
-        }
-        if (visible === true) {
-        tr[i].style.display = "";
+
+filtro.addEventListener('keyup', function() {
+    let valor = filtro.value.toLowerCase();
+    for (let i = 0; i < tabla.rows.length; i++) {
+        let contenido = tabla.rows[i].cells[2].textContent.toLowerCase();
+        if (contenido.indexOf(valor) > -1) {
+            tabla.rows[0].style.display='';
+            tabla.rows[i].style.display = '';
         } else {
-        tr[i].style.display = "none";
+            tabla.rows[i].style.display = 'none';
         }
     }
-}
-
-
-search.addEventListener('keyup',search_persona())
+});
