@@ -38,7 +38,7 @@ enviar.addEventListener('click',()=>{
             personas=JSON.parse(localStorage.getItem('personas'))
             personas.push(nuevo);
             send(personas)
-            console.log('enviado')
+            alert('Registro Exitoso')
         }else{
             alert('El ususario ya existe')
         }
