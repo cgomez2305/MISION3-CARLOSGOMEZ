@@ -13,9 +13,10 @@ let cont=0;
 let bandera=true
 
 class Person{
-    constructor(area,nombre,usuario,email,edad){
+    constructor(area,nombre,apellido,usuario,email,edad){
         this.area=area;
         this.nombre=nombre;
+        this.apellido=apellido;
         this.usuario=usuario;
         this.email=email;
         this.edad=edad;
@@ -26,7 +27,8 @@ volver.addEventListener('click',()=>{
     location.href="./index.html"
 })
 
-enviar.addEventListener('click',()=>{
+enviar.addEventListener('click',(e)=>{
+    e.preventDefault()
     if(nombre.value==''||apellido.value=='' ||usuario.value==''||direccion.value=='' || email.value=='' || edad.value=='' || area.value=='' ){
         console.log('no pasa')
     }
@@ -34,15 +36,14 @@ enviar.addEventListener('click',()=>{
         let resultado=personas.filter(element=> element.usuario==usuario.value)
         if(resultado==''){
             send(personas)
-            let nuevo=new Person(area.value,nombre.value,usuario.value,email.value,edad.value)
+            let nuevo=new Person(area.value,nombre.value,apellido.value,usuario.value,email.value,edad.value)
             personas=JSON.parse(localStorage.getItem('personas'))
             personas.push(nuevo);
             send(personas)
-            alert('Registro Exitoso')
+            location.href="./index.html"
         }else{
             alert('El ususario ya existe')
         }
-        
     }
 })
 
